@@ -14,7 +14,7 @@ Need
 
 Model
 -----
--	Locate file
+-	Locate file, and open it.
 -	Determine if file is real hmda file
   - If not; return error, stop
   - If so, load first row into an array
@@ -22,8 +22,8 @@ Model
 
 -	Open controller to read
 -	Open output to write
--	Cycle through all nodes in json file, 
-  - Perform test
-  - Write result of test
+-	Cycle through all nodes in controller file (json), 
+  - Perform test contained in pyController
+  - Write result of test to output .json file
 -	Close output
 -	Close controller
