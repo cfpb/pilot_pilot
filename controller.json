@@ -43,6 +43,14 @@
      {"Element":"39","Label":"Lien Status","Start":"110","End":"110","Length":"1","Data Type":"N","Comments,Values,Keys,etc.":"Values are 1, 2, 3, or 4"},
      {"Element":"40","Label":"Filler","Start":"111","End":"380","Length":"1","Data Type":"AN","Comments,Values,Keys,etc.":"Blank"}
    ],
+"Transmittal Sheet (TS) & Loan/Application Register (LAR)":
+   [
+     {"Transaction Item(s)":"Record Identifier","EDCK":"S010","Edit Test":"The first record identifier in the file must = 1 (TS). The second and all subsequent record identifiers must = 2 (LAR).","Error Explanation":"First record identifier does not = 1 (TS) or at least one subsequent record identifier after the first record does not = 2 (LAR)","Control":""},
+     {"Transaction Item(s)":"Record Identifier ","EDCK":"S011","Edit Test":"The HMDA file must contain at least one loan/application record (record identifier = 2). ","Error Explanation":"File does not contain at least one loan/application record (record identifier = 2)","Control":""},
+     {"Transaction Item(s)":"Agency Code ","EDCK":"S020","Edit Test":"Agency code must = 1, 2, 3, 5, 7, 9. The agency that submits the data must be the same as the reported agency code.","Error Explanation":"Agency code not valid for agency sending data","Control":""},
+     {"Transaction Item(s)":"Control Number ","EDCK":"S025","Edit Test":"Control number must = a valid respondent identifier/agency code combination for date processed.","Error Explanation":"Invalid respondent identifier/agency code combination or ID not on panel","Control":""},
+     {"Transaction Item(s)":"Application/Loan Number","EDCK":"S040","Edit Test":"Application/loan number must be unique. ","Error Explanation":"Duplicate loan numbers reported; data already in file","Control":""}
+   ],  
 "Loan/Application Register (only)":
    [
      {"Transaction Item(s)":"Application/Loan Number (Column A)","EDCK":"S205","Edit Test":"Application/Loan number must not = blank or all zeros.","Error Explanation":"Application/Loan number not in valid format or is missing","Control":""},
