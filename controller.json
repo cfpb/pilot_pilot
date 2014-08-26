@@ -139,5 +139,15 @@
      {"Transaction Item(s)":"Lien Status (Column Z)","EDCK":"V555","Edit Test":"If loan purpose = 1 or 3, then lien status must = 1, 2, or 4.","Error Explanation":"Loan purpose = 1 or 3; therefore lien status must = 1, 2, or 4","Control":""},
      {"Transaction Item(s)":"Lien Status (Column Z)","EDCK":"V560","Edit Test":"If action taken type = 1-5, 7 or 8, then lien status must = 1, 2, or 3.","Error Explanation":"Action taken type = 1-5, 7 or 8; therefore lien status must = 1, 2, or 3","Control":""},
      {"Transaction Item(s)":"Lien Status (Column Z)","EDCK":"V565","Edit Test":"If action taken type = 6, then lien status must = 4.","Error Explanation":"Action taken type = 6; therefore lien status must = 4","Control":""}
-    ]
+    ],
+"Transmittal Sheet (only)": [
+     {"Transaction Item(s)":"Parent Mailing Address","EDCK":"Q033","Edit Test":"If respondent is a bank, savings association, or independent mortgage company, and if any parent company exists, then parent name, address, city, state and zip code should not = blank.","Error Explanation":"Parent name, address, city, state, or zip code is missing","Control":""},
+     {"Transaction Item(s)":"Institution Mailing Address","EDCK":"Q020","Edit Test":"Institution address should not = parent address.","Error Explanation":"Institution address equals parent address","Control":""},
+
+     {"Transaction Item(s)":"Tax Identification (ID) Number","EDCK":"Q012","Edit Test":"The reported Tax ID number on the transmittal sheet of your HMDA data file does not match the Tax ID number reported in the previous calendar year submission.","Error Explanation":"Tax ID number on TS does not match the Tax ID number reported in the previous calendar year submission","Control":""},
+
+     {"Transaction Item(s)":"# of Loan Applications","EDCK":"Q130","Edit Test":"The number of loan/application records received in this transmission file per respondent does not = the total number of loan/application records reported in this respondent’s transmission or the total number of loan/application records in this submission is missing from the transmittal sheet.","Error Explanation":"Loan/application records received in this transmission are missing or not = to the total number of loan/application records reported in this transmission","Control":""},
+
+]
+
 }
