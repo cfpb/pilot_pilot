@@ -1,0 +1,26 @@
+{
+"Metadata":
+   [{"Source":"http://www.ffiec.gov/hmda/pdf/edit2013.pdf", "Year":"2013"}
+   ],
+"Transmittal Sheet":
+   [
+     {"Transaction Item(s)":"Record Identifier","EDCK":"S010","Edit Test":"The first record identifier in the file must = 1 (TS). The second and all subsequent record identifiers must = 2 (LAR).","Error Explanation":"First record identifier does not = 1 (TS) or at least one subsequent record identifier after the first record does not = 2 (LAR)","Test":"TSID","Value":""},
+     {"Transaction Item(s)":"Activity Year","EDCK":"S100","Edit Test":"Activity year must = year being processed (= 2013).","Error Explanation":"Invalid activity year","Test":"eq","Value":"2013"},
+	{"Transaction Item(s)":"Timestamp","EDCK":"S028","Edit Test":"Timestamp must be numeric and in ccyymmddhhmm format.","Error Explanation":"Timestamp is missing or nonnumeric (format = ccyymmddhhmm)","Test":"isNum","Value":""},
+     {"Transaction Item(s)":"Institution Name","EDCK":"V105","Edit Test":"Respondent name, address, city, state, and zip code must not = blank.","Error Explanation":"Respondent name, address, city, state or zip code is missing","Test":"NotNone","Value":""},
+     {"Transaction Item(s)":"Respondent Mailing Address","EDCK":"V105","Edit Test":"Respondent name, address, city, state, and zip code must not = blank.","Error Explanation":"Respondent name, address, city, state or zip code is missing","Test":"NotNone","Value":""},
+     {"Transaction Item(s)":"Respondent City","EDCK":"V105","Edit Test":"Respondent name, address, city, state, and zip code must not = blank.","Error Explanation":"Respondent name, address, city, state or zip code is missing","Test":"NotNone","Value":""},
+     {"Transaction Item(s)":"Respondent State Code","EDCK":"V105","Edit Test":"Respondent name, address, city, state, and zip code must not = blank.","Error Explanation":"Respondent name, address, city, state or zip code is missing","Test":"NotNone","Value":""},
+     {"Transaction Item(s)":"Respondent Zip Code","EDCK":"V105","Edit Test":"Respondent name, address, city, state, and zip code must not = blank.","Error Explanation":"Respondent name, address, city, state or zip code is missing","Test":"NotNone","Value":""},
+     {"Transaction Item(s)":"Respondent State Code","EDCK":"V140","Edit Test":"Respondent state code must equal a valid postal code abbreviation (i.e., AL for Alabama).","Error Explanation":"Respondent state code is an invalid postal code","Test":"In","Value":"AK,AL,AR,AS,AZ,CA"},
+     {"Transaction Item(s)":"Respondent Zip Code","EDCK":"V145","Edit Test":"Respondent zip code format must be NNNNN or NNNNN-NNNN and left justified.","Error Explanation":"Respondent zip code is an invalid format","Test":"ZipFormat","Value":""},
+     {"Transaction Item(s)":"Respondent E-mail Address","EDCK":"V155","Edit Test":"A valid e-mail address for the institution must be provided and must be in the format of username@exampledomain.topleveldomain. The e-mail address shall not contain any spaces and must contain only one @ symbol. the e-mail address shall not contain @. .@ and .. character strings.","Error Explanation":"E-mail address for institution is missing or is an invalid format. The e-mail address can only contain one @ symbol and must be in a format such as username@institutionname.topleveldomain. The e-mail address cannot contain '@.', '.@' or '..'. For formatting purposes, institutionname represents the institution's domain and .topleveldomain represents .com, .org, .tv, .net, .info, .name, etc. For example, hmdasubmitter@axbyczbank.com.","Test":"EmailFormat","Value":""},
+     {"Transaction Item(s)":"Parent Name","EDCK":"V108","Edit Test":"If parent name is reported, then parent name cannot equal institution name.","Error Explanation":"Parent name = institution name","Test":"ParentName","Value":"Institution Name"},
+     {"Transaction Item(s)":"Parent Mailing Address","EDCK":"V110","Edit Test":"If respondent is a mortgage banking subsidiary (MBS) or a nondepository institution that has an affiliation with a depository institution, then parent name of the MBS or the depository institution that the nondepository institution is affiliated with along with the address, city, state and zip code must not = blank.","Error Explanation":"Parent name, address, city, state, or zip code is missing","Test":"CheckParent","Value":"Parent Name"}
+   ],
+"Loan/Application Register (only)":
+   [
+     {"Transaction Item(s)":"Record Identifier","EDCK":"S010","Edit Test":"The first record identifier in the file must = 1 (TS). The second and all subsequent record identifiers must = 2 (LAR).","Error Explanation":"First record identifier does not = 1 (TS) or at least one subsequent record identifier after the first record does not = 2 (LAR)","Test":"LARID","Value":""}
+   ]
+}
+
