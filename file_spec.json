@@ -64,7 +64,7 @@
      "Type of Purchaser":[{"Element":"33","Label":"Type of Purchaser","Start":"100","End":"100","Length":"1","Data Type":"N","Comments,Values,Keys,etc.":"Values are 0, 1, 2, 3, 4, 5, 6, 7, 8, or 9"}],
      "Denial Reason: 1":[{"Element":"34","Label":"Denial Reason: 1","Start":"101","End":"101","Length":"1","Data Type":"AN","Comments,Values,Keys,etc.":"Values are 1, 2, 3, 4, 5, 6, 7, 8, 9, or blank"}],
      "Denial Reason: 2":[{"Element":"35","Label":"Denial Reason: 2","Start":"102","End":"102","Length":"1","Data Type":"AN","Comments,Values,Keys,etc.":"Values are 1, 2, 3, 4, 5, 6, 7, 8, 9, or blank"}],
-     "Denial Reason: 3":[{"Element":"36","Label":"Denial Reason: 3","Start":"103","End":"103","Length":"A","Data Type":"AN","Comments,Values,Keys,etc.":"Values are 1, 2, 3, 4, 5, 6, 7, 8, 9, or blank"}],
+     "Denial Reason: 3":[{"Element":"36","Label":"Denial Reason: 3","Start":"103","End":"103","Length":"1","Data Type":"AN","Comments,Values,Keys,etc.":"Values are 1, 2, 3, 4, 5, 6, 7, 8, 9, or blank"}],
      "Rate Spread":[{"Element":"37","Label":"Rate Spread","Start":"104","End":"108","Length":"5","Data Type":"AN","Comments,Values,Keys,etc.":"Enter the rate spread to two decimal places. Include the decimal point and any leading or trailing zeros or NA left-justified"}],
      "HOEPA Status":[{"Element":"38","Label":"HOEPA Status","Start":"109","End":"109","Length":"1","Data Type":"N","Comments,Values,Keys,etc.":"Values are 1 or 2"}],
      "Lien Status":[{"Element":"39","Label":"Lien Status","Start":"110","End":"110","Length":"1","Data Type":"N","Comments,Values,Keys,etc.":"Values are 1, 2, 3, or 4"}],
