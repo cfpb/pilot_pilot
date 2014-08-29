@@ -66,7 +66,7 @@ def checkVals(section, myData):
 		#myLen is the length of that field; myStart and myLen are used to 'splice' the
 		#data from the line (.dat) file to see what the curent value of the field is
 		myLen  = int(myFileSpec[section][0][myField][0]["Length"])
-		#myDat is the result of the splice; e.g. this is the value you want to test
+		#myDat is the result of the splice; e.g. this is the value you want to test		
 		myDat = eval( "myData[" + str(myStart) + ":" + str(myStart + myLen) + "]" )
 		#myTest is the Type of test; used as a 'case' style statement evaluation 
 		#in the hmda_evaluate script to perform the test
