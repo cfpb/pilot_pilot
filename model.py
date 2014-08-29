@@ -30,6 +30,7 @@
 # Import system modules
 import sys, string, os
 import json
+from hmda_evaluate import evaluate
 
 
 #import time
@@ -40,139 +41,49 @@ import json
 ### yes i have some global variables - these are the input .dat file, the controller
 ###     and the file_specification files.  in a mature code the controller and the
 ###     file specification files would be at urls
-myFile = "/Users/feomike/documents/analysis/2014/pilot_pilot/lar_10000.dat"
+myFile = "/Users/feomike/documents/analysis/2014/pilot_pilot/lar.dat"
 myControlFile = "/Users/feomike/documents/analysis/2014/pilot_pilot/controller_1.json"
 myFileSpecFile = "/Users/feomike/documents/analysis/2014/pilot_pilot/file_spec.json"
 json_data = open(myControlFile)
-myControl = json.load(json_data) 
-json_data = open(myFileSpecFile)
-myFileSpec = json.load(json_data)    
+myControl = json.load(json_data) #the control file
+json_data = open(myFileSpecFile) 
+myFileSpec = json.load(json_data) #the File Specification Document    
 json_data.close() 
 
 #perform all the checks for the transmittal sheet
 #the transmittal sheet is one line of data (the first, so this runs only once for a file)
-def checkTransmittal(myData):
-	#myData is the line you are operating on
+def checkVals(section, myData):
+	#section is the section of edits in the controller on 
+	#which to operate - eg "Transmittal Sheet"
+	#myData is the line you are operating on in the .dat file
 	cltr = 0
-	while cltr < len(myControl["Transmittal Sheet"]):
-		myField = myControl["Transmittal Sheet"][cltr]["Transaction Item(s)"]
-		myStart = int(myFileSpec["Transmittal Sheet"][0][myField][0]["Start"]) - 1
-		myLen  = int(myFileSpec["Transmittal Sheet"][0][myField][0]["Length"])
+	#operate on all controls in the section (read one json node at a time)
+	while cltr < len(myControl[section]):
+		#myField is the field on which to perform the check
+		myField = myControl[section][cltr]["Transaction Item(s)"]
+		#myStart is the starting postion in the .dat line for myField
+		myStart = int(myFileSpec[section][0][myField][0]["Start"]) - 1
+		#myLen is the length of that field; myStart and myLen are used to 'splice' the
+		#data from the line (.dat) file to see what the curent value of the field is
+		myLen  = int(myFileSpec[section][0][myField][0]["Length"])
+		#myDat is the result of the splice; e.g. this is the value you want to test
 		myDat = eval( "myData[" + str(myStart) + ":" + str(myStart + myLen) + "]" )
-		myTest = myControl["Transmittal Sheet"][cltr]["Test"]
-		myVal  = myControl["Transmittal Sheet"][cltr]["Value"]
-#		print line 
-#		print myDat + myTest + myVal
-		myResult = evaluate(myDat, myTest, myVal, myData)
+		#myTest is the Type of test; used as a 'case' style statement evaluation 
+		#in the hmda_evaluate script to perform the test
+		myTest = myControl[section][cltr]["Test"]
+		#myVal is not used always;  it is used in complex cases when we need to pass
+		#additional information on to the hmda_evaluation routine; things like other
+		#fields or values to test
+		myVal  = myControl[section][cltr]["Value"]
+		myResult = evaluate(myDat, myTest, myVal, myData, myFileSpec)
 		#at some point you will need to do something different than print pass/fail
 		if myResult:
-			print "     passed: " + myControl["Transmittal Sheet"][cltr]["EDCK"]	
+			print "     passed: " + myControl[section][cltr]["EDCK"]	+ " " + myDat	
+			mycnt = 1
 		else:
-			print "     FAILED: " + myControl["Transmittal Sheet"][cltr]["EDCK"]	
+			print "     FAILED: " + myControl[section][cltr]["EDCK"]	+ " " + myDat
 		cltr = cltr + 1
 	return()
-
-#perform all the checks for the LAR
-#this one runs one line at a time.  not all edits run this way
-def checkLAR(myData):
-	#myData is the line you are operating on
-	cltr = 0
-	while cltr < len(myControl["Loan/Application Register (only)"]):
-		myField = myControl["Loan/Application Register (only)"][cltr]["Transaction Item(s)"]
-		myStart = int(myFileSpec["Loan/Application Register"][0][myField][0]["Start"]) - 1
-		myLen  = int(myFileSpec["Loan/Application Register"][0][myField][0]["Length"])
-		myDat = eval( "myData[" + str(myStart) + ":" + str(myStart + myLen) + "]" )
-		myTest = myControl["Loan/Application Register (only)"][cltr]["Test"]
-		myVal  = myControl["Loan/Application Register (only)"][cltr]["Value"]
-		myResult = evaluate(myDat, myTest, myVal, myData)
-		#at some point you will need to do something different than print pass/fail
-		if myResult:
-			print "     passed: " + myControl["Loan/Application Register (only)"][cltr]["EDCK"]	
-		else:
-			print "     FAILED: " + myControl["Loan/Application Register (only)"][cltr]["EDCK"]	
-		cltr = cltr + 1
-	return()
-
-#move this function to a subscript hmda_evaualte
-def evaluate(myDat, myTest, myVal, myData):
-	if myTest == "TSID":
-		#check to see if the Record Identifier = 1
-		if myDat == '1':
-			myResult = True
-		else:
-			myResult = False
-	if myTest == "LARID":
-		#check to see if the Record Identifier = 1
-		if myDat == '2':
-			myResult = True
-		else:
-			myResult = False
-
-	if myTest == "eq":
-		#check to see if the myDat is equal to myVal
-		if myDat == myVal:
-			myResult = True
-		else:
-			myResult = False
-	if myTest == "isNum":
-		#check to see if the myDat is a number
-		if myDat.isdigit():
-			myResult = True
-		else:
-			myResult = False
-	if myTest == "NotNone":
-		#check to see if myDat is not null
-		if myDat is not None:
-			myResult = True
-		else:
-			myResult = False
-	if myTest == "In":
-		#check to see if myDat is contained with myVal
-		if myDat in myVal:
-			myResult = True
-		else:
-			myResult = False
-	if myTest == "ZipFormat":
-		#check to see if myDat is in the right ZipCode format
-		if len(myDat) == 5:
-			if myDat.isdigit():		
-				myResult = True
-		elif len(myDat) == 10:
-			myDat = myDat.replace("-","")
-			if myDat.isdigit():
-				myResult = True
-			else:
-				myResult = False
-		else:
-			myResult = False
-	if myTest == "EmailFormat":
-		#check to make sure the email is properly formatted
-		if myDat.count('@') <> 1 or myDat.count('.@') == 1 or myDat.count('@.') == 1:
-			myResult = False
-		else:
-			myResult = True
-	if myTest == "ParentName":
-		#check to make sure myDat <> Financial Institution name
-		myStart = int(myFileSpec["Transmittal Sheet"][0][myVal][0]["Start"]) - 1
-		myLen  = int(myFileSpec["Transmittal Sheet"][0][myVal][0]["Length"])
-		myVal = eval( "myData[" + str(myStart) + ":" + str(myStart + myLen) + "]" )
-		if myDat <> myVal:
-			myResult = True
-		else:
-			myResult = False		
-	if myTest == "CheckParent":
-		#check to make sure address, city, state, ZIP is not null
-		myStart = int(myFileSpec["Transmittal Sheet"][0][myVal][0]["Start"]) - 1
-		myLen  = int(myFileSpec["Transmittal Sheet"][0][myVal][0]["Length"])
-		myVal = eval( "myData[" + str(myStart) + ":" + str(myStart + myLen) + "]" )	
-		if myVal is not None:
-			if myDat is not None:
-				myResult = True
-			else:
-				myResult = False
-		else:
-			myResult = False	
-	return(myResult)
 	
 #Create Receipt
 cnt = 0
@@ -182,10 +93,10 @@ try:
 		for line in f:
 			if cnt == 0: #this is the transmittal sheet
 				print "checking Transmittal Sheet ..."
-				checkTransmittal(line)
+				checkVals("Transmittal Sheet",line)
 				print "checking LAR Data ..."
 			if cnt > 0: #this is the LAR data
-				checkLAR(line)
+				checkVals("Loan Application Register",line)
 			cnt = cnt + 1
 		#there are likely to be tests to run not on a line by line basis
 except:
