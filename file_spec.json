@@ -27,7 +27,7 @@
      "Fax Number":[{"Element":"21","Label":"Contact Person's Facsimile Number","Start":"303","End":"314","Length":"12","Data Type":"AN","Comments,Values,Keys,etc.":"Format is 999-999-9999"}],
      "Respondent E-mail Address":[{"Element":"22","Label":"Contact Person's E-mail Address","Start":"315","End":"380","Length":"66","Data Type":"AN","Comments,Values,Keys,etc.":"Enter only one e-mail address. E-mail address must contain only one @ symbol. Format is left-justified."}]
    }],
-"Loan/Application Register":
+"Loan Application Register":
    [{
      "Record Identifier":[{"Element":"01","Label":"Record Identifier","Start":"1","End":"1","Length":"1","Data Type":"N","Comments,Values,Keys,etc.":"Value is 2"}],
      "Respondent-ID":[{"Element":"02","Label":"Respondent-ID","Start":"2","End":"11","Length":"10","Data Type":"AN","Comments,Values,Keys,etc.":"Assigned by your federal regulatory agency. Format is right-justified and zero-filled."}],
