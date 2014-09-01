@@ -1,6 +1,6 @@
 ### ---------------------------------------------------------------------------
 ###   VERSION 0.1 
-###  hmda_model.py
+###  model.py
 ### Created on: Weds Aug 27 2014
 ### Created by: Michael Byrne
 ### Consumer Finance Protection Bureau 
@@ -32,11 +32,12 @@ import sys, string, os
 import json
 from hmda_evaluate import evaluate
 
-
-#import time
-#from datetime import date
-#from os import remove, close
-#today = date.today()
+import time
+from datetime import date
+from os import remove, close
+today = date.today()
+now = time.localtime(time.time())
+print "    start time:", time.asctime(now)
 
 ### yes i have some global variables - these are the input .dat file, the controller
 ###     and the file_specification files.  in a mature code the controller and the
@@ -82,6 +83,7 @@ def checkVals(section, myData):
 			mycnt = 1
 		else:
 			print "     FAILED: " + myControl[section][cltr]["EDCK"]	+ " " + myDat
+			mycnt = 1
 		cltr = cltr + 1
 	return()
 	
@@ -99,5 +101,7 @@ try:
 				checkVals("Loan Application Register",line)
 			cnt = cnt + 1
 		#there are likely to be tests to run not on a line by line basis
+	now = time.localtime(time.time())
+	print "    start time:", time.asctime(now)
 except:
 	print "an exception happened"
