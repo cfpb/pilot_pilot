@@ -130,8 +130,8 @@ def evaluate(myDat, myTest, myVal, myData, myFileSpec):
 		#needs to be a certain thing
 		#F1v = is the value in data (e.g. myDat)
 		#F1tv is in myVal
-		#F2 is in myVal
 		#F2v is in myVal
+		#Ft2v is in myVal
 		F1tv = myVal[0]["F1tv"]
 		F2 = myVal[0]["F2"]
 		F2tv = myVal[0]["F2tv"]
@@ -145,10 +145,73 @@ def evaluate(myDat, myTest, myVal, myData, myFileSpec):
 				myResult = False
 		else:
 			myResult = True	
+	elif myTest == "IfAndThenOtherFieldValue":
+		#the equation is if F1v = F1tv and F2v = F2tv, then F3v must = F3tv
+		#check to see if a value in one field exists
+		#OR if another field is a certain value, if so the value of another field 
+		#needs to be a certain thing
+		#F1v = is the value in data (e.g. myDat)
+		#F1tv is in myVal
+		#F2v is in myVal; F2tv is in myVal
+		#F3v is in myVal; F3tv is in myVal		
+		F1tv = myVal[0]["F1tv"]
+		F2 = myVal[0]["F2"]
+		F2tv = myVal[0]["F2tv"]
+		myStart = int(myFileSpec["Loan Application Register"][0][F2][0]["Start"]) - 1
+		myLen   = int(myFileSpec["Loan Application Register"][0][F2][0]["Length"])
+		F2v = eval( "myData[" + str(myStart) + ":" + str(myStart + myLen) + "]" )
+		F3 = myVal[0]["F3"]
+		F3tv = myVal[0]["F3tv"]
+		myStart = int(myFileSpec["Loan Application Register"][0][F3][0]["Start"]) - 1
+		myLen   = int(myFileSpec["Loan Application Register"][0][F3][0]["Length"])	
+		F3v = eval( "myData[" + str(myStart) + ":" + str(myStart + myLen) + "]" )
+		if myDat in (F1tv) and F2v in (F2tv):
+			print "F3v: " + F3v + " F3tv: " + F3tv
+			if F3v in (F3tv):
+				myResult = True
+			else:
+				myResult = False
+		else:
+			myResult = True
+	elif myTest == "IfOrThenOtherFieldValue":
+		#the equation is if F1v = F1tv or F2v = F2tv, then F3v must = F3tv
+		#check to see if a value in one field exists
+		#OR if another field is a certain value, if so the value of another field 
+		#needs to be a certain thing
+		#F1v = is the value in data (e.g. myDat)
+		#F1tv is in myVal
+		#F2v is in myVal; F2tv is in myVal
+		#F3v is in myVal; F3tv is in myVal		
+		F1tv = myVal[0]["F1tv"]
+		F2 = myVal[0]["F2"]
+		F2tv = myVal[0]["F2tv"]
+		myStart = int(myFileSpec["Loan Application Register"][0][F2][0]["Start"]) - 1
+		myLen   = int(myFileSpec["Loan Application Register"][0][F2][0]["Length"])
+		F2v = eval( "myData[" + str(myStart) + ":" + str(myStart + myLen) + "]" )
+		F3 = myVal[0]["F3"]
+		F3tv = myVal[0]["F3tv"]
+		myStart = int(myFileSpec["Loan Application Register"][0][F3][0]["Start"]) - 1
+		myLen   = int(myFileSpec["Loan Application Register"][0][F3][0]["Length"])	
+		F3v = eval( "myData[" + str(myStart) + ":" + str(myStart + myLen) + "]" )
+		if myDat in (F1tv) or F2v in (F2tv):
+			print "F3v: " + F3v + " F3tv: " + F3tv
+			if F3v in (F3tv):
+				myResult = True
+			else:
+				myResult = False
+		else:
+			myResult = True
+
 	elif myTest == "NumericGT0":
 		#check to make sure the dateformat is ok
 		if myDat.isdigit() and int(myDat) > 0:
 			myResult = True
 		else:
-			myResult = False    
+			myResult = False  
+	#myDat, myTest, myVal, myData, myFileSpec
+#	print "myDat: " + myDat
+#	print "myTest: " + myTest
+#	print "myVal: " + myVal
+#	print "myData: " + myData
+#	print "myFileSpec: " + myFileSpec 
 	return(myResult)
