@@ -10,7 +10,7 @@ Running the code
 - make a local copy of this repo
 - move to the src directory
 - edit hmda_model.py lines 45-47 to ensure the code is pointing to the proper data, controller and file spec files
-- at a terminal, type 'python hmda_model.py'
+- at a terminal, type `python hmda_model.py`
 
 Assumptions
 -----------
