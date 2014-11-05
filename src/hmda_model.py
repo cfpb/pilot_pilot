@@ -42,9 +42,9 @@ print "    start time:", time.asctime(now)
 ### yes i have some global variables - these are the input .dat file, the controller
 ###     and the file_specification files.  in a mature code the controller and the
 ###     file specification files would be at urls
-myFile = "/Users/feomike/documents/analysis/2014/pilot_pilot/lar.dat"
-myControlFile = "/Users/feomike/documents/analysis/2014/pilot_pilot/controller_1.json"
-myFileSpecFile = "/Users/feomike/documents/analysis/2014/pilot_pilot/file_spec.json"
+myFile = "../data/lar.dat"
+myControlFile = "controller.json"
+myFileSpecFile = "file_spec.json"
 json_data = open(myControlFile)
 myControl = json.load(json_data) #the control file
 json_data = open(myFileSpecFile) 
