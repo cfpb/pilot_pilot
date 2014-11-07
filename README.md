@@ -3,7 +3,19 @@ pilot_pilot
 
 this repo is a pilot of the hmda pilot.  as a pilot to a pilot, it has a very small focused purpose; test of some basic ideas for the pilot edit checking and reporting function.
 
+The HMDA pilot (to be built) is a concept to test the idea of radically changing the business process by which current financial institution which are required to file data under HMDA.  The current filing process involves a series of [~150 edit checks](http://www.ffiec.gov/hmda/edits.htm) that need to be performed on the data.  Many of these checks must be valid prior to submission, but some are flags that need to be just affirmed (e.g. verified) that indeed this is an ok value.  The process today requires a significant back and forth effort between the government and the financial institution and has a substantial amount of paper and hand processing.  The efficiency of HMDA filing could be increased with some automation, thus reducing burden on both the financial institution and the government's ability to process this important data asset.
+
+The HMDA pilot intends to test the idea that nearly all of the edits can be performed client side upstream, thereby eliminating much of paper and hand processing.  In order to help understand this process, we took on this very small effort to test some of the edits on the client side w/ synthetic data.  We call this test the pilot_pilot.
+
 The pilot_pilot project takes the pilot concept and tests a very small function, namely the amount of time it would take to process an average hmda .dat file by building a simple model-controller component base.  This small component base is a) a controller and file specification base built from the published Edit document and file specification documents and b) a model built in python.  The controller identifies a taxonomy of each edit check and passed an edit to the model for running.  The model has a hard coded file.
+
+The goal here is to establish a (a) [machine readable scaleable parser of the data](https://github.com/feomike/pilot_pilot/blob/master/src/file_spec.json) and (b) [a machine readable fully contained set of edits (e.g. a controller)](https://github.com/feomike/pilot_pilot/blob/master/src/controller.json) for the data.
+
+The pilot_pilot is a simple python line command opportunity to test pilot before it begins.  it works by reading in a [sample synthetic data file](https://github.com/feomike/pilot_pilot/blob/master/data/lar.dat), reading one line at a lime, then cycling through one edit at a time in the [controller](https://github.com/feomike/pilot_pilot/blob/master/src/controller.json) to perform each test of the appropriate data point in the data file.  A result is returned which establishes if that edit passed or failed.  In this pilot_pilot, the result is merely printed to screen.  in a more advanced setting, say the pilot, the result would be written to a receipt file and later displayed in a nice user interface to the end user.
+
+This whole effort establishes the opportunity to have the financial institution submitting data to know unequivocally that the data they submit is correct and no other effort later is required.
+
+The pilot_pilot just establishes that a client side engine could be developed which would pre-process data.
 
 Running the code
 ----------------
