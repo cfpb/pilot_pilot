@@ -12,7 +12,7 @@
 ### ---------------------------------------------------------------------------
 
 #move this function to a subscript hmda_evaualte
-#the arguments are 	(0) - myDat - the string in the data to be tested (eg start:end) or V1
+#the arguments are 	        (0) - myDat - the string in the data to be tested (eg start:end) or V1
 # 				(1) - myTest - the test to be performed; used in 'case' statements here
 #				(2) - myVal - NOT USED IN ALL TESTS
 #						the value to test against (if any - like the state list)
