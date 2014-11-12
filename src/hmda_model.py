@@ -102,6 +102,6 @@ try:
 			cnt = cnt + 1
 		#there are likely to be tests to run not on a line by line basis
 	now = time.localtime(time.time())
-	print "    start time:", time.asctime(now)
+	print "    end time:", time.asctime(now)
 except:
 	print "an exception happened"
