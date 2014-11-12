@@ -22,6 +22,7 @@ Running the code
 - make a local copy of this repo
 - move to the src directory
 - at a terminal, type `python hmda_model.py`
+- to continue testing evalution time copy and paste data rows into the .dat file and to see how long runs take on larger sets of data 
 
 Assumptions
 -----------
